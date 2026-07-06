@@ -31,7 +31,12 @@ The application follows a tiered architecture to ensure data integrity and user 
 *   **View Toggling:** A variable-driven UI (`gView`) toggles between "About" and "Meeting" detail galleries without needing separate screens.
 *   **Navigation:** Dedicated buttons to initiate a "New" entry or view project documentation.
 
+![Home Screen](<UI ( Power App )/Meeting Details.png>)
+
 ### 2. New Entry Screen
+
+![New Entry Page](<UI ( Power App )/New Entry Page.png>)
+
 *   **Multi-Select Combo Box:** Allows users to pick multiple Master Data IDs.
 *   **Live Metadata Preview:** Uses Power Fx to display related information (Client, Site, Category) before the user even hits save.
 *   **Complex Patching:**
@@ -47,6 +52,8 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 ## ⚙️ Power Automate: Tasks & Future Roadmap
 
+![Power Automate Flow](<Power Automate/Power Automate_ Bring Lookup columns.png>)
+
 ### Current Tasks
 *   **Data Denormalization:** Resolves the "Multi-Value Lookup" limitation in SharePoint by flattening arrays into text strings. This enables simple string-based filtering in Power BI without complex DAX or Power Query transformations.
 *   **Incremental ID Assignment:** Automatically assigns a record ID to each entry, ensuring precise mapping with the unique ID in the database.
@@ -54,6 +61,9 @@ The application follows a tiered architecture to ensure data integrity and user 
 *   **Loop Prevention:** The flow is configured to trigger only on *Create*, ensuring that the flow's own "Update" action doesn't cause an infinite loop.
 
 ### Future Roadmap
+
+![Getting Unique IDs](<Power Automate/Future Ideas/Getting Unique Power Automate.png>)
+
 *   **Latest Comment Retrieval:** Implementation of logic to parse appended "Version" or "Comment" fields and extract only the most recent entry for summary reporting.
 *   **Data Normalization (Row Splitting):** Development of logic to handle multi-value entries by splitting them into individual records (one record per combination) to enhance relational reporting.
 *   **Error Handling:** Adding "Try-Catch" scopes to the flow to log failures, provide alerts, and notify administrators.
