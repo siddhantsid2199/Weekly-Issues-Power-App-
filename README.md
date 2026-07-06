@@ -8,7 +8,7 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 1.  **Frontend (Power Apps):** A canvas app providing a streamlined interface for data entry and project browsing. It uses complex Power Fx logic for real-time data lookups and multi-entity patching.
 2.  **Backend (SharePoint Online):**
-    *   **Mapping Table:** Serves as the Master Data source containing ~50 rows of unique utility IDs and associated metadata (Client Name, Site Name, etc.).
+    *   **Mapping Table:** Serves as the Master Data source containing unique utility IDs and associated metadata (Client Name, Site Name, etc.).
     *   **Tracking List:** The primary transactional list where user entries are stored.
 3.  **Automation Layer (Power Automate):** Background flows that enrich data by denormalizing complex SharePoint lookups into flat text strings, optimizing the dataset for Power BI.
 
@@ -49,12 +49,14 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 ### Current Tasks
 *   **Data Denormalization:** Resolves the "Multi-Value Lookup" limitation in SharePoint by flattening arrays into text strings. This enables simple string-based filtering in Power BI without complex DAX or Power Query transformations.
+*   **Incremental ID Assignment:** Automatically assigns a record ID to each entry, ensuring precise mapping with the unique ID in the database.
+*   **Mapping Table Synchronization:** Automated updates to the Mapping Table to ensure master data remains current and synchronized with user entries.
 *   **Loop Prevention:** The flow is configured to trigger only on *Create*, ensuring that the flow's own "Update" action doesn't cause an infinite loop.
 
 ### Future Roadmap
 *   **Latest Comment Retrieval:** Implementation of logic to parse appended "Version" or "Comment" fields and extract only the most recent entry for summary reporting.
-*   **Automated Unique ID Generation:** A flow-based counter to generate standardized, sequential project IDs across different business units.
-*   **Error Handling:** Adding "Try-Catch" scopes to the flow to log failures and notify administrators.
+*   **Data Normalization (Row Splitting):** Development of logic to handle multi-value entries by splitting them into individual records (one record per combination) to enhance relational reporting.
+*   **Error Handling:** Adding "Try-Catch" scopes to the flow to log failures, provide alerts, and notify administrators.
 
 ---
 
