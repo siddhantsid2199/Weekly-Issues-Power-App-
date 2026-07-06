@@ -26,12 +26,12 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 ## 📱 Power App UI & Functionality
 
-![Home Screen](<UI ( Power App )/Meeting Details.png>)
-
 ### 1. Home Screen (`scrHome`)
 *   **Search & Filter:** A dynamic search bar using the `in` operator allows users to quickly find entries by Client Name.
 *   **View Toggling:** A variable-driven UI (`gView`) toggles between "About" and "Meeting" detail galleries without needing separate screens.
 *   **Navigation:** Dedicated buttons to initiate a "New" entry or view project documentation.
+
+![Home Screen](<UI ( Power App )/Meeting Details.png>)
 
 ### 2. New Entry Screen
 
