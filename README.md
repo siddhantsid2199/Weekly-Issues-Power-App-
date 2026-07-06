@@ -26,7 +26,7 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 ## 📱 Power App UI & Functionality
 
-![Home Screen](UI%20\(%20Power%20App%20\)/Home%20Page.png)
+![Home Screen](<UI ( Power App )/Home Page.png>)
 
 ### 1. Home Screen (`scrHome`)
 *   **Search & Filter:** A dynamic search bar using the `in` operator allows users to quickly find entries by Client Name.
@@ -35,7 +35,7 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 ### 2. New Entry Screen
 
-![New Entry Page](UI%20\(%20Power%20App%20\)/New%20Entry%20Page.png)
+![New Entry Page](<UI ( Power App )/New Entry Page.png>)
 
 *   **Multi-Select Combo Box:** Allows users to pick multiple Master Data IDs.
 *   **Live Metadata Preview:** Uses Power Fx to display related information (Client, Site, Category) before the user even hits save.
@@ -52,7 +52,7 @@ The application follows a tiered architecture to ensure data integrity and user 
 
 ## ⚙️ Power Automate: Tasks & Future Roadmap
 
-![Power Automate Flow](Power%20Automate/Main%20Flow%20\(%201%20\).png)
+![Power Automate Flow](<Power Automate/Main Flow ( 1 ).png>)
 
 ### Current Tasks
 *   **Data Denormalization:** Resolves the "Multi-Value Lookup" limitation in SharePoint by flattening arrays into text strings. This enables simple string-based filtering in Power BI without complex DAX or Power Query transformations.
