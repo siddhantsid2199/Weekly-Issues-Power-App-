@@ -1,0 +1,126 @@
+<style>
+.arch{--c-user:#5F5E5A;--c-user-bg:#F1EFE8;--c-user-tx:#2C2C2A;--c-user-tx2:#5F5E5A;
+--c-app:#534AB7;--c-app-bg:#EEEDFE;--c-app-tx:#26215C;--c-app-tx2:#534AB7;
+--c-sp:#0F6E56;--c-sp-bg:#E1F5EE;--c-sp-tx:#04342C;--c-sp-tx2:#0F6E56;
+--c-flow:#185FA5;--c-flow-bg:#E6F1FB;--c-flow-tx:#042C53;--c-flow-tx2:#185FA5;}
+@media (prefers-color-scheme:dark){.arch{
+--c-user:#B4B2A9;--c-user-bg:#444441;--c-user-tx:#D3D1C7;--c-user-tx2:#B4B2A9;
+--c-app:#AFA9EC;--c-app-bg:#3C3489;--c-app-tx:#CECBF6;--c-app-tx2:#AFA9EC;
+--c-sp:#5DCAA5;--c-sp-bg:#085041;--c-sp-tx:#9FE1CB;--c-sp-tx2:#5DCAA5;
+--c-flow:#85B7EB;--c-flow-bg:#0C447C;--c-flow-tx:#B5D4F4;--c-flow-tx2:#85B7EB;}}
+.arch .node rect{stroke-width:1;transition:opacity .4s,stroke-width .3s}
+.arch .node.user rect{fill:var(--c-user-bg);stroke:var(--c-user)}
+.arch .node.app rect{fill:var(--c-app-bg);stroke:var(--c-app)}
+.arch .node.sp rect{fill:var(--c-sp-bg);stroke:var(--c-sp)}
+.arch .node.flow rect{fill:var(--c-flow-bg);stroke:var(--c-flow)}
+.arch .nt{font-size:14px;font-weight:500}
+.arch .ns{font-size:12px;font-weight:400}
+.arch .node.user .nt{fill:var(--c-user-tx)}
+.arch .node.app .nt{fill:var(--c-app-tx)}.arch .node.app .ns{fill:var(--c-app-tx2)}
+.arch .node.sp .nt{fill:var(--c-sp-tx)}.arch .node.sp .ns{fill:var(--c-sp-tx2)}
+.arch .node.flow .nt{fill:var(--c-flow-tx)}.arch .node.flow .ns{fill:var(--c-flow-tx2)}
+.arch .edge{fill:none;stroke-width:1;opacity:.45;transition:opacity .4s,stroke-width .3s}
+.arch svg.dim .node{opacity:.3}
+.arch svg.dim .node.active{opacity:1}
+.arch svg.dim .node.active rect{stroke-width:2}
+.arch svg.dim .edge{opacity:.08}
+.arch svg.dim .edge.active{opacity:1;stroke-width:1.8}
+@media (prefers-reduced-motion:no-preference){
+.arch svg.dim .edge.active{stroke-dasharray:7 6;animation:dash .7s linear infinite}}
+@keyframes dash{to{stroke-dashoffset:-13}}
+.arch .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;padding:0 12px;font-size:13px;color:var(--text-primary);background:var(--surface-2);border:0.5px solid var(--border-strong);border-radius:var(--radius);cursor:pointer}
+.arch .btn:hover{background:var(--surface-1)}
+.arch .dot{width:22px;height:22px;border-radius:50%;border:0.5px solid var(--border-strong);background:var(--surface-2);color:var(--text-secondary);font-size:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.arch .dot.on{background:var(--bg-accent);color:var(--text-accent);border-color:var(--border-accent)}
+.arch .sw{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-1px;margin-right:5px}
+.arch .lbadge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:6px}
+.arch .lbadge.user{background:var(--c-user-bg);color:var(--c-user-tx)}
+.arch .lbadge.app{background:var(--c-app-bg);color:var(--c-app-tx)}
+.arch .lbadge.sp{background:var(--c-sp-bg);color:var(--c-sp-tx)}
+.arch .lbadge.flow{background:var(--c-flow-bg);color:var(--c-flow-tx)}
+.arch .code{margin:0;padding:12px 14px;background:var(--surface-2);border:0.5px solid var(--border);border-radius:8px;font-family:var(--font-mono);font-size:12px;line-height:1.55;color:var(--text-primary);white-space:pre-wrap;word-break:break-word;min-height:150px;overflow:hidden}
+.arch .chip{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--surface-2);border:0.5px solid var(--border-strong);color:var(--text-secondary)}
+.arch .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+</style>
+<div class="arch">
+<h2 class="sr-only">Annotated animated architecture diagram of a Power Apps and Power Automate utility tracker, stepping through the Power Fx and flow logic behind each stage from picking unique IDs to displaying the tracking list.</h2>
+<svg id="archSvg" width="100%" viewBox="0 0 680 560" aria-hidden="true">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<path class="edge" id="e1a" style="stroke:var(--c-user)" d="M320 64 C 270 92 210 102 188 114" marker-end="url(#arrow)"/>
+<path class="edge" id="e1b" style="stroke:var(--c-user)" d="M360 64 C 420 92 470 102 492 114" marker-end="url(#arrow)"/>
+<path class="edge" id="e2" style="stroke:var(--c-app)" d="M160 180 L160 296" marker-end="url(#arrow)"/>
+<path class="edge" id="e3" style="stroke:var(--c-sp)" d="M212 300 L212 184" marker-end="url(#arrow)"/>
+<path class="edge" id="e4" style="stroke:var(--c-app)" d="M280 150 C 345 150 400 300 396 328" marker-end="url(#arrow)"/>
+<path class="edge" id="e5" style="stroke:var(--c-sp)" d="M470 362 L470 468" marker-end="url(#arrow)"/>
+<path class="edge" id="e7" style="stroke:var(--c-flow)" d="M505 470 L505 366" marker-end="url(#arrow)"/>
+<path class="edge" id="e6" style="stroke:var(--c-flow)" d="M390 500 C 300 482 258 418 252 366" marker-end="url(#arrow)"/>
+<path class="edge" id="e8" style="stroke:var(--c-sp)" d="M495 300 L495 184" marker-end="url(#arrow)"/>
+<g class="node user" id="n-user"><rect x="295" y="24" width="90" height="40" rx="10"/><text class="nt" x="340" y="44" text-anchor="middle" dominant-baseline="central">You</text></g>
+<g class="node app" id="n-new"><rect x="90" y="118" width="190" height="62" rx="10"/><text class="nt" x="185" y="142" text-anchor="middle" dominant-baseline="central">New entry screen</text><text class="ns" x="185" y="162" text-anchor="middle" dominant-baseline="central">pick unique id</text></g>
+<g class="node app" id="n-home"><rect x="400" y="118" width="190" height="62" rx="10"/><text class="nt" x="495" y="142" text-anchor="middle" dominant-baseline="central">Home screen</text><text class="ns" x="495" y="162" text-anchor="middle" dominant-baseline="central">browse and search</text></g>
+<g class="node sp" id="n-map"><rect x="90" y="300" width="190" height="62" rx="10"/><text class="nt" x="185" y="324" text-anchor="middle" dominant-baseline="central">Mapping table</text><text class="ns" x="185" y="344" text-anchor="middle" dominant-baseline="central">master data · 50 rows</text></g>
+<g class="node sp" id="n-track"><rect x="400" y="300" width="190" height="62" rx="10"/><text class="nt" x="495" y="324" text-anchor="middle" dominant-baseline="central">Tracking list</text><text class="ns" x="495" y="344" text-anchor="middle" dominant-baseline="central">saved entries</text></g>
+<g class="node flow" id="n-flow"><rect x="390" y="470" width="190" height="62" rx="10"/><text class="nt" x="485" y="494" text-anchor="middle" dominant-baseline="central">Power Automate</text><text class="ns" x="485" y="514" text-anchor="middle" dominant-baseline="central">fills text columns</text></g>
+</svg>
+<div class="detail" style="margin-top:14px;padding:14px 16px;background:var(--surface-1);border-radius:12px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+<span id="capNum" style="font-size:12px;font-weight:500;color:var(--text-accent);background:var(--bg-accent);padding:2px 8px;border-radius:999px">1 / 8</span>
+<span id="capBadge" class="lbadge app">Power Apps</span>
+<span id="capTitle" style="font-size:16px;font-weight:500;color:var(--text-primary)">…</span>
+</div>
+<p id="capDesc" style="margin:0 0 10px;font-size:14px;line-height:1.55;color:var(--text-secondary)">…</p>
+<pre id="capCode" class="code"></pre>
+<div id="capChips" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px"></div>
+</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px">
+<button class="btn" id="btnPrev" aria-label="Previous step"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+<button class="btn" id="btnPlay"><i class="ti ti-player-pause" aria-hidden="true"></i><span id="playLbl">Pause</span></button>
+<button class="btn" id="btnNext" aria-label="Next step"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+<span id="dots" style="display:inline-flex;gap:6px;margin-left:6px"></span>
+</div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--text-secondary)">
+<span><span class="sw" style="background:var(--c-user)"></span>You</span>
+<span><span class="sw" style="background:var(--c-app)"></span>Power Apps</span>
+<span><span class="sw" style="background:var(--c-sp)"></span>SharePoint lists</span>
+<span><span class="sw" style="background:var(--c-flow)"></span>Power Automate</span>
+</div>
+</div>
+<script>
+(function(){
+var svg=document.getElementById('archSvg');
+var steps=[
+{t:"Pick unique IDs in the entry screen",layer:"app",badge:"Power Apps",d:"A combo box bound to the mapping list, with multi-select on — so its output is a table, not a single value.",code:"cmb_UniqueID.Items = 'Mapping Table'\n// multi-select on → SelectedItems is a table\n// e.g. { 45 }, { 28 }",chips:["combo box","multi-select","SharePoint binding"],n:["n-user","n-new"],e:["e1a"]},
+{t:"The combo box reads the mapping table",layer:"app",badge:"Power Apps",d:"Search and display are pointed at the number column by its internal name, so all ~50 master rows are pickable.",code:"cmb_UniqueID.Items        = 'Mapping Table'\ncmb_UniqueID.SearchFields  = [\"field_0\"]\ncmb_UniqueID.DisplayFields = [\"field_0\"]",chips:["data source","internal names","field_0"],n:["n-new","n-map"],e:["e2"]},
+{t:"Descriptive fields auto-fill in the form",layer:"app",badge:"Power Apps",d:"Concat walks the selected rows (a table) and joins the matching mapping values into a live preview label.",code:"// lbl_Client_View.Text\nConcat(\n  cmb_UniqueID.SelectedItems,\n  'Utility Client Name',\n  \"; \"\n)",chips:["Concat","table iteration","live preview"],n:["n-map","n-new"],e:["e3"]},
+{t:"Submit patches the tracking list",layer:"app",badge:"Power Apps",d:"One Patch shapes three complex column types at once: a multi-value lookup, single-select choices, and yes/no choices.",code:"Patch('Power Apps EXP_ Siddhant', Defaults('Power Apps EXP_ Siddhant'), {\n  'Unique ID': ForAll(cmb_UniqueID.SelectedItems,\n                 { Id: ID, Value: Text('Unique ID') }),\n  Status:                  drp_Status.Selected,\n  'Project Risk Category': drp_Risk.Selected,\n  'Included in Project Slide':      { Value: If(tgl_Slide.Value,\"Yes\",\"No\") },\n  'Included in Escalation Meeting': { Value: If(tgl_Escalation.Value,\"Yes\",\"No\") }\n})",chips:["Patch","ForAll","multi-value lookup","choice + boolean shaping"],n:["n-new","n-track"],e:["e4"]},
+{t:"Creating the row triggers the flow",layer:"flow",badge:"Power Automate",d:"The trigger is create-only, not create-or-modify — so the flow's own update never re-fires it. Deliberate loop prevention.",code:"Trigger: When an item is created\n  (not \"created or modified\")\n\n→ the Update item later in the flow\n  will NOT re-trigger this run",chips:["flow trigger","loop prevention","event-driven"],n:["n-track","n-flow"],e:["e5"]},
+{t:"The flow reads the mapping row per ID",layer:"flow",badge:"Power Automate",d:"Apply to each loops the selected IDs with concurrency forced to 1, so parallel runs can't scramble the order.",code:"Apply to each  →  trigger 'Unique ID'\n  Settings ▸ Concurrency Control = 1\n  Get item(Mapping Table, Id: item()?['Id'])\n  Append to ClientArr ▸ Utility Client Name\n  Append to SiteArr / ReceivingArr / CategoryArr",chips:["Apply to each","concurrency control","Get item","array variables"],n:["n-flow","n-map"],e:["e6"]},
+{t:"The flow writes the joined text back",layer:"flow",badge:"Power Automate",d:"join() collapses each array into \"PPL; Exelon; Duke\" and updates only the four text columns — everything else is left untouched.",code:"Update item(Tracking list, Id: trigger 'ID')\n  Utility Client Name = join(variables('ClientArr'),    '; ')\n  Site Name           = join(variables('SiteArr'),      '; ')\n  Receiving Name      = join(variables('ReceivingArr'), '; ')\n  Project Team        = join(variables('CategoryArr'),  '; ')\n  // Unique ID, Status, Incremental_ID left blank on purpose",chips:["join()","targeted update","denormalization"],n:["n-flow","n-track"],e:["e7"]},
+{t:"Home galleries display the tracking list",layer:"app",badge:"Power Apps",d:"A delegation-friendly Filter drives search via the in operator (contains), sorted newest-first; one variable toggles the About and Meeting views.",code:"// gal_About.Items  ·  gView toggles About / Meeting\nSort(\n  Filter('Power Apps EXP_ Siddhant',\n    IsBlank('TXT Search'.Text)\n    || 'TXT Search'.Text in 'Utility Client Name'),\n  ID, SortOrder.Descending\n)",chips:["Filter","in (contains)","Sort","variable-driven views"],n:["n-track","n-home","n-user"],e:["e8","e1b"]}
+];
+var i=0,playing=true,timer=null;
+var capNum=document.getElementById('capNum'),capBadge=document.getElementById('capBadge'),capTitle=document.getElementById('capTitle'),capDesc=document.getElementById('capDesc'),capCode=document.getElementById('capCode'),capChips=document.getElementById('capChips'),dots=document.getElementById('dots'),playLbl=document.getElementById('playLbl'),btnPlay=document.getElementById('btnPlay');
+steps.forEach(function(s,k){var b=document.createElement('button');b.className='dot';b.textContent=(k+1);b.addEventListener('click',function(){pause();i=k;render();});dots.appendChild(b);});
+function render(){
+svg.classList.add('dim');
+svg.querySelectorAll('.active').forEach(function(el){el.classList.remove('active');});
+var s=steps[i];
+s.n.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('active');});
+s.e.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('active');});
+capNum.textContent=(i+1)+' / '+steps.length;
+capBadge.textContent=s.badge;capBadge.className='lbadge '+s.layer;
+capTitle.textContent=s.t;capDesc.textContent=s.d;capCode.textContent=s.code;
+capChips.innerHTML='';s.chips.forEach(function(c){var el=document.createElement('span');el.className='chip';el.textContent=c;capChips.appendChild(el);});
+Array.prototype.forEach.call(dots.children,function(d,k){d.classList.toggle('on',k===i);});
+}
+function schedule(){clearTimeout(timer);if(playing)timer=setTimeout(function(){i=(i+1)%steps.length;render();schedule();},4600);}
+function pause(){playing=false;clearTimeout(timer);btnPlay.querySelector('i').className='ti ti-player-play';playLbl.textContent='Play';}
+function play(){playing=true;btnPlay.querySelector('i').className='ti ti-player-pause';playLbl.textContent='Pause';render();schedule();}
+document.getElementById('btnNext').addEventListener('click',function(){pause();i=(i+1)%steps.length;render();});
+document.getElementById('btnPrev').addEventListener('click',function(){pause();i=(i-1+steps.length)%steps.length;render();});
+btnPlay.addEventListener('click',function(){if(playing)pause();else play();});
+var focus={'n-user':0,'n-new':0,'n-home':7,'n-map':1,'n-track':3,'n-flow':4};
+Object.keys(focus).forEach(function(id){var el=document.getElementById(id);if(el){el.style.cursor='pointer';el.addEventListener('click',function(){pause();i=focus[id];render();});}});
+render();schedule();
+})();
+</script>
